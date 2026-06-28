@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>홍이제 | Backend Developer</title>
+<meta name="description" content="공공 SI 백엔드 개발자 홍이제 포트폴리오. 보안 취약점 99% 개선, 쿼리 성능 80% 향상."/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0059b5;--blue-light:#e6f1fb;--blue-mid:#378add;
+  --surface:#fcf8fb;--surface-low:#f6f3f5;--surface-card:#fff;
+  --text:#1b1b1d;--text-sub:#414753;--text-muted:#717785;
+  --border:#c1c6d6;--radius:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+
+/* NAV */
+nav.top-nav{position:fixed;top:0;width:100%;background:rgba(252,248,251,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.02em;text-decoration:none}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-sub);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{background:var(--blue);color:#fff;padding:8px 20px;border-radius:99px;font-size:13px;font-weight:600;text-decoration:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+
+/* SIDE NAV */
+.side-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:20px;z-index:99}
+.side-dot{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.side-dot-label{font-size:12px;font-weight:500;color:var(--text-muted);opacity:0;transform:translateX(6px);transition:opacity .2s,transform .2s,color .2s;white-space:nowrap;pointer-events:none}
+.side-dot:hover .side-dot-label{opacity:1;transform:translateX(0)}
+.side-dot-pip{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .3s,transform .25s;flex-shrink:0}
+.side-dot.active .side-dot-pip{background:var(--blue);transform:scale(1.4)}
+.side-dot.active .side-dot-label{opacity:1;transform:translateX(0);color:var(--blue)}
+
+/* SECTIONS */
+section{padding:100px 32px}
+.inner{max-width:1100px;margin:0 auto}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:120px}
+.hero-title{font-size:clamp(36px,6vw,64px);font-weight:700;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title span{color:var(--blue)}
+.hero-desc{font-size:18px;color:var(--text-sub);max-width:560px;line-height:1.65;margin-bottom:36px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--blue);color:#fff;padding:13px 28px;border-radius:99px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{opacity:.85}
+.btn-ghost{color:var(--blue);font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:13px 0}
+.btn-ghost:hover{text-decoration:underline;text-underline-offset:3px}
+.hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-num{font-size:32px;font-weight:700;color:var(--text);letter-spacing:-0.02em}
+.stat-label{font-size:13px;color:var(--text-muted);margin-top:2px}
+
+/* SECTION HEADING */
+.sec-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.sec-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px}
+.sec-bar{width:48px;height:3px;background:var(--blue);border-radius:2px;margin-bottom:48px}
+
+/* EXPERIENCE */
+#experience{background:var(--surface-low)}
+.exp-item{position:relative;padding:0 0 48px 40px;border-left:2px solid var(--border)}
+.exp-item:last-child{border-left:2px solid transparent}
+.exp-dot{position:absolute;left:-9px;top:4px;width:16px;height:16px;background:var(--blue);border-radius:50%;border:3px solid var(--surface-low)}
+.exp-meta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.exp-role{font-size:20px;font-weight:700;letter-spacing:-0.01em}
+.exp-period{font-size:13px;color:var(--text-muted);font-weight:500}
+.exp-company{font-size:15px;color:var(--blue);font-weight:600;margin-bottom:16px}
+.exp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{background:var(--surface-card);border:1px solid var(--border);color:var(--text-sub);font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.exp-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--text-sub);line-height:1.6}
+.exp-bullets li::before{content:"";width:6px;height:6px;background:var(--blue-mid);border-radius:50%;flex-shrink:0;margin-top:8px}
+.exp-bullets strong{color:var(--text);font-weight:600}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.skill-card{background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.skill-icon{width:40px;height:40px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--blue);font-size:20px}
+.skill-title{font-size:16px;font-weight:700;margin-bottom:12px}
+.skill-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--surface-low);color:var(--text-sub);font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px}
+
+/* PORTFOLIO */
+#portfolio{background:var(--surface-low)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:24px}
+.proj-card{background:var(--surface-card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .25s}
+.proj-card:hover{transform:translateY(-3px)}
+.proj-thumb{height:160px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:56px}
+.proj-body{padding:24px}
+.proj-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.proj-chip{background:var(--blue-light);color:#0C447C;font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px}
+.proj-title{font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px}
+.proj-desc{font-size:14px;color:var(--text-sub);line-height:1.7;margin-bottom:20px}
+.proj-metrics{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:16px}
+.metric{text-align:center}
+.metric-val{font-size:18px;font-weight:700;color:var(--blue)}
+.metric-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.proj-link{color:var(--blue);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.proj-link:hover{text-decoration:underline;text-underline-offset:3px}
+.proj-link-muted{color:var(--text-muted);font-size:13px;display:inline-flex;align-items:center;gap:5px}
+
+/* CERTIFICATIONS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.cert-card{display:flex;align-items:center;gap:16px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:18px 22px}
+.cert-icon{width:44px;height:44px;background:var(--blue-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--blue);flex-shrink:0}
+.cert-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.cert-org{font-size:12px;color:var(--text-muted)}
+
+/* CONTACT */
+#contact{background:var(--blue);color:#fff}
+#contact .sec-eyebrow{color:rgba(255,255,255,.65)}
+#contact .sec-title{color:#fff}
+#contact .sec-bar{background:rgba(255,255,255,.35)}
+.contact-desc{font-size:18px;color:rgba(255,255,255,.8);max-width:480px;margin-bottom:32px;line-height:1.65}
+.contact-links{display:flex;gap:16px;flex-wrap:wrap}
+.contact-link{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:12px 22px;border-radius:99px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:background .2s}
+.contact-link:hover{background:rgba(255,255,255,.22)}
+
+/* FOOTER */
+footer{background:#1b1b1d;color:rgba(255,255,255,.4);text-align:center;padding:28px 32px;font-size:13px}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.on{opacity:1;transform:none}
+
+@media(max-width:768px){
+  section{padding:72px 20px}
+  .nav-links{display:none}
+  .proj-grid{grid-template-columns:1fr}
+  .hero-stats{gap:24px}
+  .side-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">홍이제</a>
+    <ul class="nav-links">
+      <li><a href="#experience">경력</a></li>
+      <li><a href="#skills">기술</a></li>
+      <li><a href="#portfolio">프로젝트</a></li>
+      <li><a href="#certifications">자격</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">연락하기</a>
+  </div>
+</nav>
+
+<!-- SIDE NAV -->
+<nav class="side-nav" aria-label="섹션 이동">
+  <a class="side-dot active" href="#hero" data-section="hero">
+    <span class="side-dot-label">소개</span>
+    <span class="side-dot-pip"></span>
+  </a>
+  <a class="side-dot" href="#experience" data-section="experience">
+    <span class="side-dot-label">경력</span>
+    <span class="side-dot-pip"></span>
+  </a>
+  <a class="side-dot" href="#skills" data-section="skills">
+    <span class="side-dot-label">기술</span>
+    <span class="side-dot-pip"></span>
+  </a>
+  <a class="side-dot" href="#portfolio" data-section="portfolio">
+    <span class="side-dot-label">프로젝트</span>
+    <span class="side-dot-pip"></span>
+  </a>
+  <a class="side-dot" href="#certifications" data-section="certifications">
+    <span class="side-dot-label">자격</span>
+    <span class="side-dot-pip"></span>
+  </a>
+  <a class="side-dot" href="#contact" data-section="contact">
+    <span class="side-dot-label">연락</span>
+    <span class="side-dot-pip"></span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="inner">
+    <div class="reveal on">
+      <h1 class="hero-title">데이터를 정확하게,<br>문제를 <span>근본부터</span> 해결합니다</h1>
+      <p class="hero-desc">공공 SI 시스템에서 도메인을 이해하고 재발 방지 기준을 만드는 백엔드 개발자입니다. 보안 취약점 99% 개선, 쿼리 성능 80% 향상 등 수치로 증명 가능한 성과를 만들어왔습니다.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#portfolio">
+          <i class="ti ti-layout-grid" aria-hidden="true"></i>프로젝트 보기
+        </a>
+        <a class="btn-ghost" href="#experience">
+          경력 확인하기 <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">99%</div><div class="stat-label">보안 취약점 개선율</div></div>
+        <div><div class="stat-num">80%</div><div class="stat-label">쿼리 응답 속도 향상</div></div>
+        <div><div class="stat-num">2년+</div><div class="stat-label">공공 SI 실무 경력</div></div>
+        <div><div class="stat-num">5,000+</div><div class="stat-label">데이터 정합성 보정 건수</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Experience</p>
+      <h2 class="sec-title">경력</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <div class="exp-role">SW개발 사원</div>
+        <div class="exp-period">2023.12 — 재직 중</div>
+      </div>
+      <div class="exp-company">넥스챌 · 공공기관 SI 사업</div>
+      <div class="exp-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Spring</span>
+        <span class="tag">EgovFramework</span>
+        <span class="tag">Oracle</span>
+        <span class="tag">MyBatis</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">Sparrow</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>교육부 기능개선 고도화 사업 — 정보시스템 관리 서비스 신규 개발 <strong>단독 전담</strong> (요구사항 분석 → DB 설계 → 화면 개발 → 운영)</li>
+        <li>IRIS-SIMS 유지보수 사업 — Sparrow 점검 및 조치로 <strong>웹 취약점 1,500건 → 11건 (99%) 개선</strong></li>
+        <li>조회 쿼리 도메인 분석 및 튜닝으로 <strong>응답 속도 5초 → 1초 (80%) 단축</strong></li>
+        <li>IRIS→SIMS, SIMS→NTIS 등 시스템 간 연계·배치 모니터링 및 오류 재처리</li>
+        <li>연계 매핑 정의서 표준화로 <strong>1,000건 이상 오류 데이터 보정</strong></li>
+        <li>나라장터 Open API 공고 수집 자동화 프로그램 Python 단독 개발 (11개 수요기관 대상)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Skills</p>
+      <h2 class="sec-title">기술 스택</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <div class="skill-title">언어</div>
+        <div class="skill-chips">
+          <span class="chip">Java</span>
+          <span class="chip">JSP</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-layers-intersect" aria-hidden="true"></i></div>
+        <div class="skill-title">프레임워크</div>
+        <div class="skill-chips">
+          <span class="chip">Spring Framework</span>
+          <span class="chip">EgovFramework</span>
+          <span class="chip">MyBatis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+        <div class="skill-title">데이터베이스</div>
+        <div class="skill-chips">
+          <span class="chip">Oracle</span>
+          <span class="chip">SQL</span>
+          <span class="chip">DBeaver</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <div class="skill-title">도구 · 인프라</div>
+        <div class="skill-chips">
+          <span class="chip">Jenkins</span>
+          <span class="chip">SVN</span>
+          <span class="chip">Redmine</span>
+          <span class="chip">Sparrow</span>
+          <span class="chip">Eclipse</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Portfolio</p>
+      <h2 class="sec-title">프로젝트</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-file-search" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Python</span>
+            <span class="proj-chip">Open API</span>
+            <span class="proj-chip">pandas</span>
+            <span class="proj-chip">openpyxl</span>
+          </div>
+          <h3 class="proj-title">나라장터 입찰공고 자동수집 시스템</h3>
+          <p class="proj-desc">11개 수요기관의 입찰공고·사전규격·발주계획 데이터를 나라장터 Open API로 매일 자동 수집해 엑셀로 저장하는 시스템. 중복 제거, 페이지네이션, 원자적 파일 저장, 재시도 로직까지 단독 설계·구현.</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="metric-val">3종</div><div class="metric-label">수집 데이터 유형</div></div>
+            <div class="metric"><div class="metric-val">11개</div><div class="metric-label">수요기관 대상</div></div>
+            <div class="metric"><div class="metric-val">매일 08:00</div><div class="metric-label">자동 실행</div></div>
+          </div>
+          <a class="proj-link" href="https://github.com/eze-hong/bid-notice" target="_blank">
+            <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub 저장소 보기
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-shield-check" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Java</span>
+            <span class="proj-chip">Spring</span>
+            <span class="proj-chip">Sparrow</span>
+            <span class="proj-chip">보안</span>
+          </div>
+          <h3 class="proj-title">IRIS-SIMS 웹 보안 취약점 99% 개선</h3>
+          <p class="proj-desc">국가 R&amp;D 데이터 통합관리 플랫폼(SIMS)에서 Sparrow 점검으로 1,500여 건 취약점 탐지. 유형별 분류 → 공통 조치 가이드 수립 → 단계별 코드 수정 → 재점검 루프로 11건까지 감축.</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="metric-val">1,500건</div><div class="metric-label">초기 취약점</div></div>
+            <div class="metric"><div class="metric-val">11건</div><div class="metric-label">최종 잔여</div></div>
+            <div class="metric"><div class="metric-val">99%</div><div class="metric-label">개선율</div></div>
+          </div>
+          <span class="proj-link-muted">
+            <i class="ti ti-lock" aria-hidden="true"></i>공공 시스템 — 코드 비공개
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Certifications</p>
+      <h2 class="sec-title">자격 · 학력</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="cert-grid reveal">
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+        <div><div class="cert-name">정보처리기사</div><div class="cert-org">한국산업인력공단 · 2025.09</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+        <div><div class="cert-name">SQLD</div><div class="cert-org">한국데이터산업진흥원 · 2025.12</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <div><div class="cert-name">OPIc IM2</div><div class="cert-org">ACTFL · 2026.03</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+        <div><div class="cert-name">한국방송통신대학교 컴퓨터과학과</div><div class="cert-org">재학 중 · 학점 4.3 / 4.5</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-building-community" aria-hidden="true"></i></div>
+        <div><div class="cert-name">홍익대학교 도예유리과 (학사)</div><div class="cert-org">졸업 · 2022.02</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner reveal">
+    <p class="sec-eyebrow">Contact</p>
+    <h2 class="sec-title">연락하기</h2>
+    <div class="sec-bar"></div>
+    <p class="contact-desc">새로운 기회나 협업 제안은 언제든지 환영합니다.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:hongezae@gmail.com">
+        <i class="ti ti-mail" aria-hidden="true"></i>hongezae@gmail.com
+      </a>
+      <a class="contact-link" href="https://github.com/eze-hong" target="_blank">
+        <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 홍이제. All rights reserved.</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal:not(.on)');
+const revealIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); revealIO.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => revealIO.observe(el));
+
+const sections = ['hero','experience','skills','portfolio','certifications','contact'];
+const dots = document.querySelectorAll('.side-dot');
+
+const sectionIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.section === id));
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionIO.observe(el);
+});
+
+dots.forEach(dot => {
+  dot.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(dot.dataset.section);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
