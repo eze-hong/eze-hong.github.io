@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>홍이제 | Backend Developer</title>
+<meta name="description" content="공공 SI 백엔드 개발자 홍이제 포트폴리오. 웹 보안 취약점 1,500여 건→11건, 조회 쿼리 응답 5초→1초."/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0059b5;--blue-light:#e6f1fb;--blue-mid:#378add;
+  --surface:#fcf8fb;--surface-low:#f6f3f5;--surface-card:#fff;
+  --text:#1b1b1d;--text-sub:#414753;--text-muted:#717785;
+  --border:#c1c6d6;--radius:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--text);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6}
+
+/* MOBILE TOP NAV — 768px 이하에서만 표시 */
+nav.top-nav{display:none;position:fixed;top:0;width:100%;background:rgba(252,248,251,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:200}
+.nav-inner{padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-0.02em;text-decoration:none}
+.nav-hamburger{background:none;border:none;cursor:pointer;color:var(--text);padding:4px;display:flex;align-items:center;justify-content:center;font-size:22px}
+/* mobile drawer */
+.mobile-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(252,248,251,0.97);backdrop-filter:blur(20px);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-drawer.open{display:flex}
+.mobile-drawer a{font-size:22px;font-weight:700;color:var(--text-sub);text-decoration:none;letter-spacing:-0.01em;transition:color .15s}
+.mobile-drawer a:hover,.mobile-drawer a.active{color:var(--blue)}
+
+/* DESKTOP SIDE NAV — 769px 이상에서만 표시 */
+.side-nav{position:fixed;right:0;top:0;height:100vh;width:130px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;z-index:100;padding:0 24px 0 0}
+.side-item{display:flex;align-items:center;gap:0;text-decoration:none;padding:9px 16px;border-radius:10px 0 0 10px;width:100%;transition:background .2s}
+.side-item:hover{background:var(--blue-light)}
+.side-item-bar{width:3px;height:20px;border-radius:2px;background:var(--border);transition:background .25s,height .25s;flex-shrink:0;margin-right:12px}
+.side-item-label{font-size:13px;font-weight:500;color:var(--text-muted);transition:color .2s,font-weight .2s;white-space:nowrap}
+.side-item.active .side-item-bar{background:var(--blue);height:28px}
+.side-item.active .side-item-label{color:var(--blue);font-weight:700}
+.side-item:hover .side-item-label{color:var(--text)}
+
+/* SECTIONS */
+section{padding:100px 32px}
+.inner{max-width:1100px;margin:0 auto}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:120px}
+.hero-title{font-size:clamp(36px,6vw,64px);font-weight:700;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title span{color:var(--blue)}
+.hero-desc{font-size:18px;color:var(--text-sub);max-width:560px;line-height:1.65;margin-bottom:36px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--blue);color:#fff;padding:13px 28px;border-radius:99px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{opacity:.85}
+.btn-ghost{color:var(--blue);font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:13px 0}
+.btn-ghost:hover{text-decoration:underline;text-underline-offset:3px}
+.hero-stats{display:flex;gap:56px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-num{font-size:30px;font-weight:700;color:var(--text);letter-spacing:-0.02em}
+.stat-num i{font-size:22px;color:var(--blue-mid);vertical-align:baseline;margin:0 2px}
+.stat-label{font-size:13px;color:var(--text-muted);margin-top:4px}
+
+/* SECTION HEADING */
+.sec-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.sec-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px}
+.sec-bar{width:48px;height:3px;background:var(--blue);border-radius:2px;margin-bottom:48px}
+
+/* EXPERIENCE */
+#experience{background:var(--surface-low)}
+.exp-item{position:relative;padding:0 0 48px 40px;border-left:2px solid var(--border)}
+.exp-item:last-child{border-left:2px solid transparent}
+.exp-dot{position:absolute;left:-9px;top:4px;width:16px;height:16px;background:var(--blue);border-radius:50%;border:3px solid var(--surface-low)}
+.exp-dot.muted{background:var(--blue-mid)}
+.exp-meta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.exp-role{font-size:20px;font-weight:700;letter-spacing:-0.01em}
+.exp-period{font-size:13px;color:var(--text-muted);font-weight:500}
+.exp-company{font-size:15px;color:var(--blue);font-weight:600;margin-bottom:16px}
+.exp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{background:var(--surface-card);border:1px solid var(--border);color:var(--text-sub);font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.exp-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--text-sub);line-height:1.6}
+.exp-bullets li::before{content:"";width:6px;height:6px;background:var(--blue-mid);border-radius:50%;flex-shrink:0;margin-top:8px}
+.exp-bullets strong{color:var(--text);font-weight:600}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.skill-card{background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.skill-icon{width:40px;height:40px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--blue);font-size:20px}
+.skill-title{font-size:16px;font-weight:700;margin-bottom:12px}
+.skill-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--surface-low);color:var(--text-sub);font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px}
+
+/* PORTFOLIO */
+#portfolio{background:var(--surface-low)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.proj-card{background:var(--surface-card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .25s}
+.proj-card:hover{transform:translateY(-3px)}
+.proj-thumb{height:160px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:56px}
+.proj-body{padding:24px}
+.proj-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.proj-chip{background:var(--blue-light);color:#0C447C;font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px}
+.proj-title{font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px}
+.proj-meta{font-size:12px;color:var(--text-muted);font-weight:500;margin:-6px 0 10px}
+.proj-desc{font-size:14px;color:var(--text-sub);line-height:1.7;margin-bottom:20px}
+.proj-metrics{display:flex;gap:20px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:16px}
+.metric{text-align:center}
+.metric-val{font-size:18px;font-weight:700;color:var(--blue)}
+.metric-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.proj-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+.proj-link{color:var(--blue);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.proj-link:hover{text-decoration:underline;text-underline-offset:3px}
+.proj-link-muted{color:var(--text-muted);font-size:13px;display:inline-flex;align-items:center;gap:5px}
+
+/* TROUBLESHOOTING TOGGLE */
+.ts-toggle{border-top:1px solid var(--border)}
+.proj-metrics+.ts-toggle{border-top:none}
+.ts-toggle summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:12px 0;font-size:13px;font-weight:600;color:var(--text-sub);user-select:none}
+.ts-toggle summary::-webkit-details-marker{display:none}
+.ts-toggle summary i{transition:transform .2s;color:var(--blue);font-size:15px;flex-shrink:0}
+.ts-toggle[open] summary i{transform:rotate(90deg)}
+.ts-toggle summary:hover{color:var(--blue)}
+.ts-body{padding:2px 0 16px;font-size:13px;color:var(--text-sub);line-height:1.7}
+.ts-body p{margin-bottom:10px}
+.ts-body p:last-child{margin-bottom:0}
+.ts-label{font-weight:700;color:var(--text);display:block;margin-bottom:2px}
+
+/* CERTIFICATIONS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.cert-card{display:flex;align-items:center;gap:16px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:18px 22px}
+.cert-icon{width:44px;height:44px;background:var(--blue-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--blue);flex-shrink:0}
+.cert-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.cert-org{font-size:12px;color:var(--text-muted)}
+
+/* CONTACT */
+#contact{background:var(--blue);color:#fff}
+#contact .sec-eyebrow{color:rgba(255,255,255,.65)}
+#contact .sec-title{color:#fff}
+#contact .sec-bar{background:rgba(255,255,255,.35)}
+.contact-desc{font-size:18px;color:rgba(255,255,255,.8);max-width:480px;margin-bottom:32px;line-height:1.65}
+.contact-links{display:flex;gap:16px;flex-wrap:wrap}
+.contact-link{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:12px 22px;border-radius:99px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:background .2s}
+.contact-link:hover{background:rgba(255,255,255,.22)}
+
+/* FOOTER */
+footer{background:#1b1b1d;color:rgba(255,255,255,.4);text-align:center;padding:28px 32px;font-size:13px}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.on{opacity:1;transform:none}
+
+@media(max-width:768px){
+  section{padding:72px 20px}
+  #hero{padding-top:88px}
+  .proj-grid{grid-template-columns:1fr}
+  .hero-stats{gap:32px}
+  nav.top-nav{display:block}
+  .side-nav{display:none}
+  .inner{max-width:100%}
+}
+@media(min-width:769px){
+  /* 우측 사이드 메뉴 공간 확보 */
+  .inner{max-width:960px;margin-left:auto;margin-right:auto;padding-right:0}
+  section{padding:100px 32px 100px 32px}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">HongEze</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
+      <i class="ti ti-menu-2"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#hero"         data-close>소개</a>
+  <a href="#experience"   data-close>경력</a>
+  <a href="#skills"       data-close>기술</a>
+  <a href="#portfolio"    data-close>프로젝트</a>
+  <a href="#certifications" data-close>자격</a>
+  <a href="#contact"      data-close>연락</a>
+</div>
+
+<!-- DESKTOP SIDE NAV -->
+<nav class="side-nav" aria-label="섹션 이동">
+  <a class="side-item active" href="#hero"            data-section="hero">
+    <span class="side-item-bar"></span><span class="side-item-label">소개</span>
+  </a>
+  <a class="side-item" href="#experience"             data-section="experience">
+    <span class="side-item-bar"></span><span class="side-item-label">경력</span>
+  </a>
+  <a class="side-item" href="#skills"                 data-section="skills">
+    <span class="side-item-bar"></span><span class="side-item-label">기술</span>
+  </a>
+  <a class="side-item" href="#portfolio"              data-section="portfolio">
+    <span class="side-item-bar"></span><span class="side-item-label">프로젝트</span>
+  </a>
+  <a class="side-item" href="#certifications"         data-section="certifications">
+    <span class="side-item-bar"></span><span class="side-item-label">자격</span>
+  </a>
+  <a class="side-item" href="#contact"                data-section="contact">
+    <span class="side-item-bar"></span><span class="side-item-label">연락</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="inner">
+    <div class="reveal on">
+      <h1 class="hero-title">데이터를 이해하고,<br>안정적인 시스템을 만드는 <br> 백엔드 개발자 <!--<span>홍이제</span>-->입니다.</h1>
+      <p class="hero-desc">개발과 운영을 함께 수행하며 데이터 정합성, 성능, 보안 문제를 원인부터 분석하고 해결해왔습니다. 기록으로 남기는 것을 중요하게 생각하며, 보안 취약점 99% 개선과 쿼리 성능 80% 향상 등 실제 운영 환경에서 성과를 만들어왔습니다.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#portfolio">
+          <i class="ti ti-layout-grid" aria-hidden="true"></i>프로젝트 보기
+        </a>
+        <a class="btn-ghost" href="#experience">
+          경력 확인하기 <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">1,500건 <i class="ti ti-arrow-right" aria-hidden="true"></i> 11건</div>
+          <div class="stat-label">웹 보안 취약점 · Sparrow</div>
+        </div>
+        <div>
+          <div class="stat-num">5초 <i class="ti ti-arrow-right" aria-hidden="true"></i> 1초</div>
+          <div class="stat-label">조회 쿼리 응답 시간</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Experience</p>
+      <h2 class="sec-title">경력</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <!-- IRIS-SIMS -->
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <div class="exp-role">IRIS 유지보수 개발 사업</div>
+        <div class="exp-period">2025.02 — 2026.03</div>
+      </div>
+      <div class="exp-company">넥스챌 · 한국과학기술기획평가원(KISTEP) · SIMS 담당 2명 중 1명</div>
+      <div class="exp-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Spring</span>
+        <span class="tag">EgovFramework</span>
+        <span class="tag">JSP</span>
+        <span class="tag">Oracle</span>
+        <span class="tag">Sparrow</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>국가 R&amp;D 데이터 통합관리 플랫폼(SIMS)의 <strong>백엔드·DB·보안·연계 운영 전반</strong>을 담당</li>
+        <li>Sparrow 웹 취약점을 유형별로 분류하고 공통 조치 가이드를 수립해 <strong>1,500여 건을 11건까지 감축</strong></li>
+        <li>조회 쿼리의 도메인 분석으로 불필요한 조회를 제거해 <strong>응답 5초 → 1초 이내로 단축</strong></li>
+        <li>IRIS→SIMS·SIMS→NTIS 간 연계·배치 모니터링, 상태코드 기반 장애 원인 분석 및 재처리</li>
+        <li>연계 기관 간 데이터 매칭 기준을 정리하고 근거 기반으로 협의해 <strong>5,000건 이상 정합성 보정</strong></li>
+      </ul>
+    </div>
+
+    <!-- 교육부 -->
+    <div class="exp-item reveal">
+      <div class="exp-dot muted"></div>
+      <div class="exp-meta">
+        <div class="exp-role">교육부 기능개선 고도화 사업</div>
+        <div class="exp-period">2024.01 — 2025.01</div>
+      </div>
+      <div class="exp-company">넥스챌 · 교육부 · 프로젝트 팀 8명</div>
+      <div class="exp-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Spring</span>
+        <span class="tag">EgovFramework</span>
+        <span class="tag">JSP</span>
+        <span class="tag">Oracle</span>
+        <span class="tag">Google Analytics</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>8명 팀에서 정보시스템 관리 서비스를 단독 담당 — <strong>요구사항 분석부터 DB 설계, 화면 개발, 운영까지</strong> 전 과정 수행</li>
+        <li>To-Be 화면을 직접 설계해 추상적 요구사항을 시각화, 담당자와 사전 미팅 후 개발 진행</li>
+        <li>Google Analytics 기반 전자정부 누리집 월간 사용량 분석 및 정기 보고</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Skills</p>
+      <h2 class="sec-title">기술 스택</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <div class="skill-title">언어</div>
+        <div class="skill-chips">
+          <span class="chip">Java</span>
+          <span class="chip">JSP</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-layers-intersect" aria-hidden="true"></i></div>
+        <div class="skill-title">프레임워크</div>
+        <div class="skill-chips">
+          <span class="chip">Spring Framework</span>
+          <span class="chip">EgovFramework</span>
+          <span class="chip">MyBatis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+        <div class="skill-title">데이터베이스</div>
+        <div class="skill-chips">
+          <span class="chip">Oracle</span>
+          <span class="chip">SQL</span>
+          <span class="chip">DBeaver</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <div class="skill-title">도구 · 인프라</div>
+        <div class="skill-chips">
+          <span class="chip">SVN</span>
+          <span class="chip">Redmine</span>
+          <span class="chip">Sparrow</span>
+          <span class="chip">Eclipse</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Portfolio</p>
+      <h2 class="sec-title">프로젝트</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <div class="proj-grid">
+      <!-- IRIS 보안 -->
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-shield-check" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Java</span>
+            <span class="proj-chip">EgovFramework</span>
+            <span class="proj-chip">Oracle</span>
+            <span class="proj-chip">Sparrow</span>
+            <span class="proj-chip">JSP</span>
+          </div>
+          <h3 class="proj-title">IRIS 유지보수 개발</h3>
+          <p class="proj-meta">SIMS 담당 2명 중 1명 · 사업 전체 40명</p>
+          <p class="proj-desc">국가 R&amp;D 과제·성과 데이터 통합관리 플랫폼(SIMS)의 백엔드·DB·보안·연계 운영 전반을 담당. Sparrow 점검으로 검출된 웹 취약점 1,500여 건을 유형별 분류 → 공통 조치 가이드 수립 → 재점검 루프로 11건까지 감축했고, 시스템 간 연계·배치 운영과 데이터 정합성 보정을 수행했습니다.</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="metric-val">1,500여 건</div><div class="metric-label">초기 검출</div></div>
+            <div class="metric"><div class="metric-val">11건</div><div class="metric-label">최종 잔여</div></div>
+          </div>
+          <details class="ts-toggle">
+            <summary><i class="ti ti-chevron-right" aria-hidden="true"></i>트러블 슈팅 — 엑셀 업로드 오류, 원인 추적과 재발 방지</summary>
+            <div class="ts-body">
+              <p><span class="ts-label">문제</span>보안과제 해제연월(yyyyMM) 값에 공백이 섞인 엑셀을 업로드하면 <code>Integer.parseInt()</code>에서 예외가 발생해 업로드 전체가 실패하는 오류가 접수됐습니다.</p>
+              <p><span class="ts-label">해결</span>디버그 모드로 검증 메서드를 단계 추적해 공백 포함이 원인임을 확인하고 trim() 처리를 추가했습니다. 베타 환경 검증 후 운영에 반영했습니다.</p>
+              <p><span class="ts-label">재발 방지</span>같은 방식으로 parseInt를 사용하는 코드를 전체 점검해, 동일 오류가 날 수 있는 지점을 함께 수정했습니다.</p>
+            </div>
+          </details>
+          <details class="ts-toggle">
+            <summary><i class="ti ti-chevron-right" aria-hidden="true"></i>트러블 슈팅 — 조회 쿼리 응답 5초 → 1초</summary>
+            <div class="ts-body">
+              <p><span class="ts-label">문제</span>특정 화면의 조회 응답이 5초 이상 걸린다는 사용자 불편이 접수됐습니다.</p>
+              <p><span class="ts-label">해결</span>쿼리를 분석한 결과, 여러 화면이 공유하는 공통 조회 쿼리가 이 화면에 필요 없는 정보까지 함께 조회하고 있었습니다. 도메인 구조를 파악해 실제로 쓰는 데이터만 조회하도록 조건을 분리했습니다.</p>
+              <p><span class="ts-label">결과</span>응답이 1초 이내로 줄었고, 불필요한 정보가 사라져 화면도 명확해졌습니다. 성능 개선은 튜닝 기법보다 도메인과 데이터 요구사항을 정확히 이해하는 데서 출발한다는 것을 배웠습니다.</p>
+            </div>
+          </details>
+          <span class="proj-link-muted" style="margin-top:12px">
+            <i class="ti ti-lock" aria-hidden="true"></i>공공 시스템 — 코드 비공개
+          </span>
+        </div>
+      </div>
+      <!-- 나라장터 -->
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-file-search" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Python</span>
+            <span class="proj-chip">Open API</span>
+            <span class="proj-chip">pandas</span>
+            <span class="proj-chip">openpyxl</span>
+          </div>
+          <h3 class="proj-title">나라장터 입찰공고 자동수집 시스템</h3>
+          <p class="proj-desc">11개 수요기관의 입찰공고·사전규격·발주계획 데이터를 나라장터 Open API로 매일 자동 수집해 엑셀로 저장하는 시스템. 중복 제거, 페이지네이션, 원자적 파일 저장, 재시도 로직까지 단독 설계·구현했습니다. 배포 후 스스로 코드 리뷰를 진행해 데이터 유실 감지, 파일 손상 방지 등 구조를 개선하고 전 과정을 회고 문서로 남겼습니다.</p>
+          <div class="proj-links">
+            <a class="proj-link" href="https://github.com/eze-hong/bid-notice" target="_blank" rel="noopener">
+              <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub 저장소
+            </a>
+            <a class="proj-link" href="https://github.com/eze-hong/bid-notice/blob/main/REFACTORING.md" target="_blank" rel="noopener">
+              <i class="ti ti-notebook" aria-hidden="true"></i>리팩토링 회고 보기
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 교육부 -->
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-building-government" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Java</span>
+            <span class="proj-chip">Spring</span>
+            <span class="proj-chip">EgovFramework</span>
+            <span class="proj-chip">Oracle</span>
+            <span class="proj-chip">JSP</span>
+          </div>
+          <h3 class="proj-title">교육부 정보시스템 관리 서비스 신규 개발</h3>
+          <p class="proj-meta">프로젝트 팀 8명 · 담당 서비스 단독 개발</p>
+          <p class="proj-desc">교육부 고도화 사업에서 정보시스템 관리 서비스를 전담 개발. 요구사항 분석부터 DB 설계, 화면 개발, 운영까지 End-to-End 수행. To-Be 화면을 직접 설계해 추상적 요구사항을 시각화하고 담당자와 사전 미팅한 후 개발했습니다.</p>
+          <span class="proj-link-muted">
+            <i class="ti ti-lock" aria-hidden="true"></i>공공 시스템 — 코드 비공개
+          </span>
+        </div>
+      </div>
+      <!-- 논문 챗봇 -->
+      <div class="proj-card reveal">
+        <div class="proj-thumb">
+          <i class="ti ti-message-chatbot" style="font-size:56px" aria-hidden="true"></i>
+        </div>
+        <div class="proj-body">
+          <div class="proj-chips">
+            <span class="proj-chip">Python</span>
+            <span class="proj-chip">RAG</span>
+            <span class="proj-chip">ChromaDB</span>
+            <span class="proj-chip">Gemini</span>
+            <span class="proj-chip">Streamlit</span>
+          </div>
+          <h3 class="proj-title">논문 PDF Q&amp;A 챗봇 (RAG)</h3>
+          <p class="proj-desc">한국어 학술 논문 PDF를 벡터 DB에 저장하고 자연어로 검색·답변하는 RAG 시스템. 외부 유료 서비스 없이 로컬 임베딩 모델(ko-sroberta)과 Gemini 무료 티어만으로 구현. 청크 크기(300/500/700자)를 비교 실험하고 RAGAS로 정량 평가해 설정을 선택했습니다.</p>
+          <a class="proj-link" href="https://github.com/eze-hong/paper-chatbot" target="_blank" rel="noopener">
+            <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub 저장소
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="inner">
+    <div class="reveal">
+      <p class="sec-eyebrow">Certifications</p>
+      <h2 class="sec-title">자격 · 학력</h2>
+      <div class="sec-bar"></div>
+    </div>
+    <p class="proj-desc">도예를 전공하고 개발로 전향한 뒤 컴퓨터과학과에서 CS 기반을 쌓고 있습니다.</p>
+    <div class="cert-grid reveal">
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+        <div><div class="cert-name">정보처리기사</div><div class="cert-org">한국산업인력공단 · 2025.09</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+        <div><div class="cert-name">SQLD</div><div class="cert-org">한국데이터산업진흥원 · 2025.12</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <div><div class="cert-name">OPIc IM2</div><div class="cert-org">ACTFL · 2026.03</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+        <div><div class="cert-name">한국방송통신대학교 컴퓨터과학과</div><div class="cert-org">재학 중 · 학점 4.3 / 4.5</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="ti ti-building-community" aria-hidden="true"></i></div>
+        <div><div class="cert-name">홍익대학교 도예유리과 (학사)</div><div class="cert-org">졸업 · 2022.02</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner reveal">
+    <p class="sec-eyebrow">Contact</p>
+    <h2 class="sec-title">연락하기</h2>
+    <div class="sec-bar"></div>
+    <p class="contact-desc">새로운 기회나 협업 제안은 언제든지 환영합니다.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:hongezae@gmail.com">
+        <i class="ti ti-mail" aria-hidden="true"></i>hongezae@gmail.com
+      </a>
+      <a class="contact-link" href="https://github.com/eze-hong" target="_blank" rel="noopener">
+        <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 hongeze. All rights reserved.</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal:not(.on)');
+const revealIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); revealIO.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => revealIO.observe(el));
+
+// Desktop side nav — active 상태
+const sections = ['hero','experience','skills','portfolio','certifications','contact'];
+const sideItems = document.querySelectorAll('.side-item');
+
+const sectionIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      sideItems.forEach(item => item.classList.toggle('active', item.dataset.section === id));
+    }
+  });
+}, { threshold: 0.35 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionIO.observe(el);
+});
+
+sideItems.forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(item.dataset.section);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Mobile drawer
+const hamburger = document.getElementById('hamburger');
+const drawer    = document.getElementById('mobileDrawer');
+const hamburgerIcon = hamburger.querySelector('i');
+
+hamburger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  hamburgerIcon.className = open ? 'ti ti-x' : 'ti ti-menu-2';
+});
+
+document.querySelectorAll('[data-close]').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    hamburgerIcon.className = 'ti ti-menu-2';
+  });
+});
+</script>
+</body>
+</html>
